@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    font-family: "Montserrat";
+    font-size: 22px;
+
+    &.container {
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 80px auto auto auto auto auto;
+        gap: 16px 20px;
+        grid-template-areas:
+            "navbar navbar navbar navbar"
+            "upload upload on_off on_off"
+            "card_1  card_1  card_1  card_1 "
+            "card_2  card_2  card_2  card_2 "
+            "card_3  card_3  card_3  card_3 "
+            "stats  stats  stats  stats "
+            "live   live   live   live  ";
+        justify-items: center;
+        align-items: center;
+    }
+}
+
+.navbar {
+    grid-area: navbar;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 80px;
+    width: calc(100% - 44px);
+
+    padding: 4px 22px;
+
+    background: #55b9f3;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    color: white;
+}
+
+button {
+    width: 100%;
+    height: 100%;
+
+    padding: 26px 52px;
+
+    outline: none;
+    border: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    transition: all 0.3s;
+
+    cursor: pointer;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    &:hover {
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    }
+
+    &:active {
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+
+    > img {
+        width: 100px;
+    }
+
+    &.upload {
+        grid-area: upload;
+        background: rgba(85, 185, 243, 1);
+
+        align-self: center;
+        justify-self: start;
+    }
+    &.on_off {
+        grid-area: on_off;
+
+        background: rgb(255, 111, 97);
+
+        align-self: center;
+        justify-self: end;
+
+        &.active {
+            background: rgba(85, 185, 243, 1);
+        }
+    }
+}
+
+.stats {
+    grid-area: stats;
+
+    width: 100%;
+    height: 100%;
+    & > canvas {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.card {
+    width: calc(100% - 32px);
+    height: calc(100% - 52px);
+
+    padding: 26px 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 48px;
+
+    color: white;
+
+    transition: all 0.3s;
+
+    cursor: pointer;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    &:hover {
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    }
+
+    &:active {
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+
+    > img {
+        width: 62px;
+    }
+
+    > .text {
+        .title {
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .count {
+            color: black;
+        }
+    }
+
+    &.__1 {
+        grid-area: card_1;
+    }
+    &.__2 {
+        grid-area: card_2;
+    }
+    &.__3 {
+        grid-area: card_3;
+    }
+}
+
+.live {
+    grid-area: live;
+    width: 100%;
+}
+.live > img {
+    width: 100%;
+    max-height: 100vh;
+}

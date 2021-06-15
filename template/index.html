@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Automafy</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static',filename='style.css') }}">
+
+
+</head>
+
+<body class="container">
+    <div class="navbar">
+        <h3>Automafy</h3>
+    </div>
+    <button class="upload">
+        <img src="{{ url_for('static',filename='assets/icons/upload.svg') }}" alt="">
+        <h2>Model</h2>
+    </button>
+    <button class="on_off">
+        <img src="{{ url_for('static',filename='assets/icons/power.svg') }}" alt="">
+        <h2>Off</h2>
+    </button>
+    <div class="card __1">
+        <img src="{{ url_for('static',filename='assets/icons/plant.svg') }}" alt="">
+        <div class="text">
+            <div class="title">Total crops</div>
+            <div class="count">120</div>
+        </div>
+    </div>
+    <div class="card __2">
+        <img src="{{ url_for('static',filename='assets/icons/pest.svg') }}" alt="">
+        <div class="text">
+            <div class="title">Total anomalies</div>
+            <div class="count">120</div>
+        </div>
+    </div>
+    <div class="card __3">
+        <img src="{{ url_for('static',filename='assets/icons/healthy.svg') }}" alt="">
+        <div class="text">
+            <div class="title">Total crops</div>
+            <div class="count">120</div>
+        </div>
+    </div>
+    <div class="stats">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="live">
+        <img src="{{ url_for('video_feed') }}">
+    </div>
+
+    <script src="{{url_for('static',filename='assets/jslib/jquery_3.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/jslib/chartjs/chart.js')}}"></script>
+    <script src="{{ url_for('static',filename='main.js') }}"></script>
+</body>
+
+</html>
