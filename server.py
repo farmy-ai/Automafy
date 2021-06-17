@@ -3,12 +3,13 @@ from flask.wrappers import Response
 import cv2
 import base64
 import numpy as np
+import _thread
 from io import BytesIO
+from jetson_camera import main as jetson_main
 
 app = Flask(__name__, static_folder='template', template_folder='template')
 
 is_alive = True
-
 statistics = []
 
 
@@ -37,6 +38,13 @@ def gen_frames():
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+
+@app.route('/stats', methods=['GET'])
+def stats():
+    global statistics
+    r = {"statistics": statistics}
+    return r, 200
 
 
 @app.route('/is_alive', methods=['GET'])
@@ -80,4 +88,10 @@ def video_feed():
 
 
 if __name__ == '__main__':
+    # Create two threads as follows
+    try:
+        _thread.start_new_thread(jetson_main, ())
+    except:
+        print("Error: unable to start thread")
+
     app.run(host="0.0.0.0", debug=True)

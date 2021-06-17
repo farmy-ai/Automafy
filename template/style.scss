@@ -167,6 +167,19 @@ button {
 .live {
     grid-area: live;
     width: 100%;
+
+    position: relative;
+
+    &:after {
+        content: "• live";
+
+        font-size: 32px;
+        color: red;
+
+        position: absolute;
+        left: 8px;
+        top: 8px;
+    }
 }
 .live > img {
     width: 100%;

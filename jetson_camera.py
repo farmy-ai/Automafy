@@ -12,7 +12,7 @@ import uuid
 import imgcompare
 import numpy as np
 import base64
-from datetime import datetime
+import time
 
 # import serial
 # from serial import Serial
@@ -27,6 +27,7 @@ import requests
 _DELAY_ = 30
 _CLASS_ = 'class_3/'
 _IMAGE_DIR_PATH_ = 'dataset/'+_CLASS_
+tensorflow_model_path = 'assets/Tensorflow_model'
 # arduino = serial.Serial(port='/dev/ttyACM0', baudrate=115200, timeout=.1)
 
 
@@ -56,17 +57,6 @@ def gstreamer_pipeline(
             display_height,
         )
     )
-
-
-def main():
-    # Create folders
-    try:
-        # os.mkdir('dataset')
-        os.mkdir(_IMAGE_DIR_PATH_)
-    except:
-        print("Already exist")
-
-    return True
 
 
 def do_somthing():
@@ -142,8 +132,8 @@ def show_camera():
             res = {'alive': True}
             try:
                 res = requests.get('http://127.0.0.1:5000/is_alive').json()
-            except:
-                pass
+            except Exception as e:
+                print(e)
 
             if not res['alive']:
                 cv2.waitKey(_DELAY_)
@@ -191,9 +181,10 @@ def show_camera():
 
                 try:
                     requests.post('http://127.0.0.1:5000/send_anomaly',
-                                  json={"prediction": midian_prediction, "time": datetime.now().time()}, timeout=5)
-                except:
-                    pass
+                                  json={"prediction": midian_prediction, "time": time.time()}, timeout=5)
+                except Exception as e:
+                    print(e)
+                    break
 
                 """ INJECT YOUR CODE HERE """
                 # move jetson motors
@@ -211,8 +202,19 @@ def show_camera():
         print("Unable to open camera")
 
 
-if __name__ == "__main__":
-    main()
-    setup(tensorflow_model_path='assets/Tensorflow_model')
+def main():
+    # Create folders
+    try:
+        # os.mkdir('dataset')
+        os.mkdir(_IMAGE_DIR_PATH_)
+    except:
+        print("Already exist")
+
+    setup(tensorflow_model_path)
 
     show_camera()
+
+    return True
+
+# if __name__ == "__main__":
+#   main()
