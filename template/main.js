@@ -5,10 +5,17 @@ $(document).ready(async () => {
 
     await setup();
 
+
+
     $('.on_off').on('click', async () => {
 
 
         alive = !$('.on_off').hasClass('active');
+
+        // var socket = io();
+        // socket.on('connect', function () {
+        //     socket.emit('my event', { data: 'I\'m connected!' });
+        // });
 
         await fetch('http://localhost:5000/power', {
             method: 'POST',
@@ -26,6 +33,60 @@ $(document).ready(async () => {
         alive
             ? $('.on_off>h2').addClass('active')
             : $('.on_off>h2').removeClass('active');
+
+    })
+
+    $('.upload').on('click', async () => {
+
+        const input = document.createElement('input');
+        input.type = "file";
+
+        input.onchange = async (e) => {
+
+            const file = input.files[0];
+
+            const data = new FormData()
+            data.append('file', file, file.name)
+
+            try {
+
+                const res = await fetch('http://localhost:5000/upload', {
+                    method: 'POST',
+                    // headers: {
+                    //     'Content-Type': 'multipart/formdata'
+                    // },
+                    body: data
+                })
+
+                console.log('-----------------------------------------------------');
+                console.log('response');
+                console.log('-----------------------------------------------------');
+                console.log(res);
+
+                Swal.fire({
+                    title: 'Uploaded Successfully!',
+                    text: 'your new model is now in production',
+                    icon: 'info',
+                    confirmButtonText: 'Cool'
+                })
+
+            } catch (error) {
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'something wrong happens',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+
+            }
+
+        }
+
+        input.click();
+
+
+
 
     })
 

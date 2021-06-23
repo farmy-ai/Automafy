@@ -129,12 +129,14 @@ def show_camera():
         while True:
 
             # check if model enabled
-            res = {'alive': True}
+            res = {'alive': True, 'terminate': False}
             try:
                 res = requests.get('http://127.0.0.1:5000/is_alive').json()
             except Exception as e:
                 print(e)
 
+            if res['terminate']:
+                return
             if not res['alive']:
                 cv2.waitKey(_DELAY_)
                 continue
